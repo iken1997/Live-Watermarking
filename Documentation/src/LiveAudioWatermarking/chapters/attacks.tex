@@ -1,0 +1,58 @@
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+
+\chapter{Attack research} 
+
+
+What follows is a series of brief descriptions of the watermarking techniques that have been found through research on various papers. Each paper is given a short introduction and a rapid overview on the method employed.
+
+
+
+\section{BackDoor: Making Microphones Hear Inaudible Sounds}
+
+Roy et al. \cite{backdoor} describe a method to introduce disturbances in the recording of an audio signal in such a way that they cannot be heard by human beings, but do appear in the final data. 
+
+
+Being composed of frequency ranges outside the human hearing capabilities, a sound is designed specifically to exploit the non-linearities of the recording equipment, microphones found mainly in smartphones and IoT devices, so that a “shadow” sound appears in the audible range of the recording. 
+Considering that this signal can be modulated, this enables the creation of a communication channel that can be used to transmit arbitrary data, on the order of 4kbps reported by the paper in certain conditions.
+
+
+
+The idea of exploiting non-linearities in the recording equipment and of using ultrasonic signals for the live watermarking implementation has been inspired by this paper.
+
+
+\section{Tic-Tac, forgery time has run-up! Live acoustic watermarking for integrity check in forensic applications}
+Niță \& Ciobanu \cite{tictac} propose an interesting solution for the live audio watermarking problem. Their solution consists in the usage of a loud and recognizable sound, the ticking of a clock, to convey covert information. This brings a few advantages to usual watermarking methods:
+\begin{itemize}
+	\item It is a sound ubiquitous in its presence all throughout the world, meaning that even if it is loud it does not bring disturbance to the people listening because it is familiar.
+	\item Being impulse-like in nature, the bandwidth of its signal is wide, making it very hard to be extracted from a recording and reused in another one to make it seem original.
+\end{itemize}
+The Tic-Tac signal, with a period of 1s, is injected in-between periods with small but imperceptible delays that can be modulated to an arbitrary message.
+
+Another method for watermark injection is also provided due to the low SNR of the one mentioned above. It consists in generating a watermarking signal made by mixing a ticking sound with a chirp signal. A matched filter is obtained for the chirp signal as the decoding key. Finally, a modified clock positioned inside a room will broadcast an audio signal with a predetermined pattern that repeats every x seconds as long as a recording is taking place. Only an authorized person that knows the adapted filter will be able to extract the watermark.
+
+
+
+\section{Robust audio watermarking in the time domain}
+Bassia and Pitas \cite{robust} in Robust audio watermarking employ a simple method for watermark injection into audio data. However only on the digital side, namely MPEG Layer III and II files. 
+
+The scheme proposed in the paper acts on the individual samples contained in the audio files, represented on either 16 or 8 bits, by changing the least significant bit of each one. The change is small enough in amplitude that it does not produce any perceptual difference. The key is the sequence of bits, which is randomly generated. 
+
+The detector does not use the original signal and provides a confidence measure normalized between 0 (no watermark detected) and 1 (fully detected watermark). 
+
+This method is solid enough to resist MPEG compression and both moving average and low pass filtering, with a worst case detection success of 99.8\%.
+
+
+\section{Sonic watermarking}
+Ryuki Tachibana \cite{sonichu} describes a method based on frequency subdivision of the original signal with a multi-bit message embedded into it together with a synchronization signal. 
+
+The method is explained as follows. A sequence of power spectrums, calculated using short-term DFTs, is put together as a segmented area in a time-frequency plane called pattern block. Each pattern block is divided into tiles and the tiles in a row are called a sub-band. A pseudorandom number is used to assign values +1 and -1 to tiles and indicates their change in magnitudes. This pseudorandom number is the key given to the embedder and the detector.
+
+
+The detection is performed by computing the magnitudes of the content for all the tiles, which in turn get correlated with the pseudorandom array used as a key.
+
+
+The paper shows that this method is fast enough to compute to be used for live watermarking applications. Specifically, the paper tests different scenarios involving playing of solo, orchestral and popular music. The results showed very high detection rates for popular and orchestral music but acted very poorly on instrumental solos, because 
+they often presented long intervals of silence. This implies preferred usage to be live shows and concerts, leaving speeches to other methods.
+
+

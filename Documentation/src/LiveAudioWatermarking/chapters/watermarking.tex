@@ -1,0 +1,46 @@
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\chapter{Watermarking}
+\section{Introduction to watermarking}
+Watermarking is a technique used in both analog and digital works alike to embed \emph{usually} hidden information about the origin, the status or recipient of the host data. 
+
+The core of the idea is to add a watermark signal to the data, in such a way that it cannot be easily detected by a standard user but can later be recovered from the mixed signal using the right key and algorithm. Since the watermark has to be concealed, its information is usually repeated all throughout the data with light modifications compared to the average amplitude of the original signal, so that it can always be recovered even if small amounts of watermarked data is available \cite[page 4, “Basic Watermarking Principles”]{hartung}.
+
+A generic watermark signal usually depends on a key and the watermark information; sometimes it also depends on the data into which it is embedded. The extracted watermark, or relative confidence measure, instead is obtained using the watermarked data and the key, either in conjunction with the original data or not \cite[page 5, figs. 1-2, formulas 1-5]{hartung}.
+
+Now, given the concept of a watermark, the needed qualities for a good watermark can be inferred \footnote{Note: all cited papers about watermarking had a dedicated section about requirements, Hartung \& Kutter however went more into detail. Some were deemed more important to list than others.} \cite[page 3, “Requirements”]{hartung} :
+\begin{itemize}
+	\item Robustness against standard manipulation: one of the major requirements. All manipulation and modification that the data might be subjected to throughout the distribution chain: conversions between different digital formats, digital to analog conversion, editing, printing. An attack in this context is every manipulation done with the purpose of rendering the watermark unrecognizable, destroying it or altering it.
+	\item Imperceptibility: perceptual transparency, or the inability for the user to notice the watermark. The watermarking process should not introduce perceptible artifacts in the data. Nonetheless, it is desirable for a robust watermark's amplitude to be as high as possible, which is in direct contrast with the imperceptibility requirement. The implication is that a threshold must be found that does not cross the fine line of perception for the end user, but the subjectivity of human viewers/listeners makes it very difficult to find. Only they can be the final judges and tell if the presence of the watermark is compromising the fidelity of the original data or not.
+	\item Density: a watermark should convey as much information as possible. Date of delivery, original recipient, source and every additional piece of information apt to find clues on the origin and use of the “incriminated” data. This is a soft requirement, because every use case has different demands. Some applications may need only to check if a watermark is present or not, while some others may need to embed large quantities of identifying data.
+	\item Speed in embedding and retrieval: the algorithm should not be too complex or computationally expensive because real-time watermarking is a needed feature, especially in the case of live audio watermarking.
+\end{itemize}
+
+These qualities are what drives the development of different watermarking techniques, some of which will be better analysed and explained in the following chapters, focusing on the ones that have been found to be most useful within the scope of “live audio watermarking” but also giving a fast overview of other usages.
+
+\section{Common use cases}
+\subsection{As means of digital copy protection}
+
+Watermarking is used on a wide variety of media, including text, video and audio. In this day and age the whole process, from creation and processing to distribution, is done digitally for all of the aforementioned media types. This provides many advantages, like transmission free of noise at a very cheap cost, ease of use through software and many more. Arguably, one the most important advantages of digital media is ease of reproduction without loss of fidelity. However, content providers do not find it a good quality, because it may hinder their ability to extract profits from their work. Mechanisms of digital copy protection are usually employed for this very reason (DRMs, or Digital Rights Management systems), but a paying user must have access to cleartext whom can then reproduce and illegally distribute copies. DRMs are usually successful in their purpose, at least for a starting period, but eventually always get circumvented. One last method for protecting IP rights is the insertion of a digital watermark into the data. Indeed its most frequent usage is copyright enforcement/protection. While it does not actively contrast illegal copying, it can be used at least as a last resort to identify source and destination of the multimedia data, allowing producers to engage in legal action if case should emerge \cite[page 1, “Introduction”]{hartung}.
+
+
+
+
+Let us make an example for clarity's sake.
+Let us imagine a producer that wants to do screening tests for their latest movie. They would need to send the product to untrusted parties that may leak it without the owner's approval. Even if they were trusted, a leak may always happen regardless (by means of hacking or lack of attention). How can a producer protect his or her work? One way would be to disincentivize sharing the protected work by threatening to cut ties, but this introduces the problem of identifying who did actually leak the work. This is where watermarking comes into use. A hidden piece of data, different for every subject whose work is sent to, is introduced into the movie itself. It is difficult if not impossible to notice but also robust to modifications. After obtaining the leaked data, an algorithm is used by the producing party to extract the watermark and identify who leaked the data. 
+
+
+This is of course not the only use case. 
+
+\subsection{As an authentication method}
+
+
+Specifically, it is of interest the ability of a watermark to authenticate a recording.
+
+
+
+A typical scenario is composed of a recording device and the people to be recorded (whether knowingly or not). The recording may be presented before a court of law and the person speaking may claim that the recording has been forged and so it is not valid as evidence. This puts the people that have the burden of proof in a difficult position because proving that an audio is forged is easy (audio tampering is easily spotted by looking at sudden cuts, differences in spectral signatures in different parts of the audio and abnormal peaks and valleys) but proving that it is not is really hard. In addition, in a court of law any alteration of the data after recording is considered tampering and consequently invalidating for evidence's purposes \cite[pp. 2-3, “Live audio watermarking for forensics”]{tictac}.
+
+By embedding a watermark into a live recording (of a private conversation for example, but it may also be used in public speeches) there is a guarantee that if a malicious agent tries to modify it, they will modify the watermark too. In that case, the person talking can prove that recording is fake by extracting the watermark from the original recording and comparing it to the faked one, showing that they differ.
+
+

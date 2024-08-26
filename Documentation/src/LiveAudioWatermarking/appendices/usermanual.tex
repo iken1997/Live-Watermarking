@@ -1,0 +1,37 @@
+\chapter{User Manual}
+\label{usermanual}
+\section{Analysis with Matlab Live Script}
+To replicate the example, a provided audio sample can be used. In order to get the previously described result the script (\textit{"fsk\_decoder.mlx"}), the audio sample(\textit{"Test.m4a"}) and the decryption tool (\textit{"decode.jar"}) must be in the same folder. 
+To run the experiment simply open the script and press run (or observe the already existing data)
+A variant of the script where you can record directly from the microphone of the hosting device, and then run the analysis is available and its name is "mic\_fsk\_decoder.mlx". 
+The latter is useful for experimenting with the Live Watermark app, see the relative section for information about the app.
+
+\section{Installation of the App}
+An APK file (\textit{"LiveWatermark.apk"}) is available to easily install the application on a Device. To work and experiment with the live scripts the same parameters must be set. The recommended one are:
+\begin{itemize}
+    \item FREQ\_BIT\_START = 19000 Hz  
+    \item FREQ\_BIT\_1 = 18000 Hz 
+    \item FREQ\_BIT\_0 = 0 Hz 
+    \item FREQ\_BIT\_STOP = 18500 Hz  
+    \item tone\_length = 10 ms; %length in seconds
+\end{itemize}
+
+Remember to modify accordingly the Settings in the application (tree dots menu -\> Settings) or the parameters in the live script (at the beginning of the script).
+
+\section{Importing the App source code}
+Here are reported the steps to import the source code.
+\begin{enumerate}
+    \item Install Android Studio from this \href{https://developer.android.com/studio}{link}.
+    \item Unzip the Archive "LiveWatermark.zip" in a directory preferably without spaces
+    \item Open Android Studio
+    \item Go To File -\> Open... and Select the extracted folder.
+    \item Building the code should install automatically the dependencies
+\end{enumerate}
+
+\section{Compiling the decrypt tool}
+The source file of the app is in the folder "decrypt tool" and consist only of the file "main.kt"
+To compile the code download the command line compiler from \href{https://kotlinlang.org/docs/command-line.html}{here}, then from Terminal launch the following command:  "\texttt{kotlinc main.kt -include-runtime -d decoder.jar}".
+
+
+
+% In the user manual you should explain, step-by-step, how to reproduce the demo that you showed in the oral presentation or the results you mentioned in the previous chapters.\\ If it is necessary to install some toolchain that is already well described in the original documentation (i.e., Espressif's toolchain for ESP32 boards or the SEcube toolchain) just insert a reference to the original documentation (and remember to clearly specify which version of the original documentation must be used). There is no need to copy and paste step-by-step guides that are already well-written and available.\\The user manual must explain how to re-create what you did in the project, no matter if it is low-level code (i..e VHDL on SEcube's FPGA), high-level code (i.e., a GUI) or something more heterogeneous (i.e. a bunch of ESP32 or Raspberry Pi communicating among them and interacting with other devices).  

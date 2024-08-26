@@ -1,0 +1,46 @@
+\chapter{Implementation Overview}
+\section{Goal of the project}
+The goal of this project is to implement an inaudible live audio watermarking solution that makes it possible to authenticate a live recording, enabling a person to speak and simultaneously guarantee that a recording of their speech will not be either forged or altered. 
+
+The scope of the project is limited to recording devices that are available to most people, namely cheap and widespread ones: microphones embedded into smartphones, laptops, IoT devices and the like.
+
+
+\section{Issues to be solved}
+During the planning phase of the project, many issues surfaced on how to implement a solution with the required characteristics. % 
+
+
+
+First and foremost, emphasis was put on providing a solution that would be easy to use and immediately available to end users. The choice fell on a smartphone app that could be readily downloaded from app stores \footnote{Since our project delivers a Proof of Concept, the app is distributed as an \emph{apk} file for Android smartphones only.}.
+
+
+
+After that, the question has been posed of which data to transmit that might be useful for authenticity, but especially \emph{which} data to transmit, even though the proposed solution enables transmission of arbitrary packets of data (within limits). The application provides an easy way to embed GPS coordinates into the watermark, but the user is encouraged to include highly identifying info like e-mail addresses and ID numbers.
+
+
+
+
+In chapter 2 the desirable qualities of a watermark have been addressed. Of those, it is indispensable for the watermark to be inaudible. The  solution had to take into consideration a transmission method that would not affect the quality of the recording, ideally to not be perceivable at all.
+
+ 
+This has been a highly limiting factor for the choice of the frequencies (for the chosen method employs frequency manipulation) in which to transmit the watermark data, together with the sampling rate of the voice recording equipment and the tendency for microphones and recording software to be tuned to the low-frequency bandwidth \footnote{Frequencies in the audible range go from a minimum of 20Hz to a maximum of 20kHz, depending on sex and age.}. 
+
+
+The suggested solution will be explained in further detail in the next section.
+
+
+
+
+\section{Solution overview}
+The implemented solution is split in two parts. 
+
+
+
+The first is the provided application, intended to be used the most and by frequent (such as people active in PR) and occasional users alike. It is developed in such a way to be reasonably configurable, portable by means of being installable on every smartphone and tuned for the average user. The message inside the watermark, whether to encrypt it or not, options for the frequency, inclusion of the GPS coordinates: every one of these can be changed inside the app in a dedicated menu. 
+
+
+
+
+The other half of the solution is a set of two tools to be used in conjunction that constitute the post-processing analysis capacity to check for the presence of a watermark inside a recording and, possibly, to extract the data hidden inside it. A MATLAB LiveScript for data detection and extraction and a CLI tool written in Kotlin that enables the MATLAB script, provided with the corresponding key, to decrypt the incoming string of bits.
+
+
+An in-depth description of the solution, with its implementation details is presented in the next chapter.
